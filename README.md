@@ -1,6 +1,11 @@
 # scylla-cdc-java
 [![Tests](https://img.shields.io/github/workflow/status/scylladb/scylla-cdc-java/Tests/master?label=Tests)](https://github.com/scylladb/scylla-cdc-java/actions/workflows/tests.yml) [![Release](https://img.shields.io/maven-central/v/com.scylladb/scylla-cdc-base?label=Release)](https://search.maven.org/search?q=g:com.scylladb%20AND%20a:scylla-cdc*) 
 
+> **Sophena fork:** `1.3.12-sophena.1` is a Lightning Codes security-maintained fork of
+> upstream `1.3.12`. It makes TLS DNS/IP endpoint verification mandatory and pins the shaded
+> Netty family to 4.1.136.Final. It is built from a locked commit by the Sophena connector image
+> workflow and is not an official ScyllaDB-supported release.
+
 scylla-cdc-java is a library that makes it easy to develop Java applications consuming the [Scylla CDC log](https://docs.scylladb.com/using-scylla/cdc/). The library automatically and transparently handles errors and topology changes of the underlying Scylla cluster. It provides a simple API for reading the CDC log, as well as examples and ready-made tools, such as replicator.
 
 It is recommended to get familiar with the Scylla CDC documentation first, in order to understand the concepts used in the documentation of scylla-cdc-java: https://docs.scylladb.com/using-scylla/cdc/.

@@ -6,7 +6,7 @@
     <packaging>pom</packaging>
     <name>Java Library for Scylla CDC</name>
     <description>A library for reading the Scylla CDC log.</description>
-    <url>https://github.com/scylladb/scylla-cdc-java</url>
+    <url>https://github.com/Lightning-Codes/scylla-cdc-java</url>
     <inceptionYear>2020</inceptionYear>
 
     <modules>
@@ -254,10 +254,10 @@
     </profiles>
 
     <scm>
-        <connection>scm:git:https://github.com/scylladb/scylla-cdc-java</connection>
-        <developerConnection>scm:git:https://github.com/scylladb/scylla-cdc-java</developerConnection>
-        <url>https://github.com/scylladb/scylla-cdc-java</url>
-        <tag>scylla-cdc-1.3.12</tag>
+        <connection>scm:git:https://github.com/Lightning-Codes/scylla-cdc-java</connection>
+        <developerConnection>scm:git:https://github.com/Lightning-Codes/scylla-cdc-java</developerConnection>
+        <url>https://github.com/Lightning-Codes/scylla-cdc-java</url>
+        <tag>HEAD</tag>
     </scm>
     
     <licenses>
@@ -283,7 +283,7 @@
     <developers>
         <developer>
             <name>Various</name>
-            <organization>ScyllaDB</organization>
+            <organization>ScyllaDB and Lightning Codes</organization>
         </developer>
     </developers>
 </project>
