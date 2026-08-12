@@ -56,7 +56,6 @@ public class Driver3Session implements AutoCloseable {
         if (cqlConfiguration.sslConfig != null) {
             SslConfig sslConfig = cqlConfiguration.sslConfig;
             final SslContextBuilder sslContextBuilder = SslContextBuilder.forClient();
-            System.out.println(sslConfig.getClass().getProtectionDomain().getCodeSource().getLocation());
             sslContextBuilder.sslProvider(SslProvider.valueOf(sslConfig.sslProviderString));
             if (sslConfig.trustStorePath != null) {
                 final KeyStore trustKeyStore = createKeyStore(sslConfig.trustStorePath, sslConfig.trustStorePassword);
@@ -114,7 +113,10 @@ public class Driver3Session implements AutoCloseable {
             } catch (SSLException e) {
                 throw new RuntimeException(e);
             }
-            final SSLOptions sslOptions = new RemoteEndpointAwareNettySSLOptions(context);
+            // RemoteEndpointAwareNettySSLOptions supplies SNI but does not enable
+            // JSSE endpoint identification. Use the strict wrapper so both initial
+            // contact points and topology-discovered nodes must match a DNS/IP SAN.
+            final SSLOptions sslOptions = new StrictRemoteEndpointAwareNettySSLOptions(context);
             clusterBuilder.withSSL(sslOptions);
         }
 
