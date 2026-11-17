@@ -31,7 +31,24 @@ public interface RawChange extends Iterable<Cell> {
             this.operationId = operationId;
         }
 
+        // ScyllaDB logs deletes it makes itself (Alternator TTL expiry, and per-row
+        // TTL expiry since 2026.2) as the negated client operation: -3 for a row
+        // delete, -4 for a partition delete. Upstream (scylladb/scylla-cdc-java
+        // 860f0f90) adds SERVICE_ROW_DELETE / SERVICE_PARTITION_DELETE for them,
+        // which this fork's connector (v2.0.5) does not know. The Sophena fork maps
+        // them to the client delete types instead, so the connector emits them as
+        // ordinary deletes; before this, parse() threw on -3 and the connector
+        // retried the change forever.
+        private static final byte SERVICE_ROW_DELETE_ID = (byte) -3;
+        private static final byte SERVICE_PARTITION_DELETE_ID = (byte) -4;
+
         public static OperationType parse(byte value) {
+            if (value == SERVICE_ROW_DELETE_ID) {
+                return ROW_DELETE;
+            }
+            if (value == SERVICE_PARTITION_DELETE_ID) {
+                return PARTITION_DELETE;
+            }
             try {
                 return OperationType.values()[value];
             } catch (ArrayIndexOutOfBoundsException e) {
